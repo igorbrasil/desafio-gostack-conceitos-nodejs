@@ -16,19 +16,19 @@ app.get("/repositories", (request, response) => {
 });
 
 app.post("/repositories", (request, response) => {
-  const { title, url, techs, likes } = request.body;
-
+  const { title, url, techs } = request.body;
+  const likes = 0;
   const repository = { id: uuid(), title, url, techs, likes };
 
   repositories.push(repository);
 
-  response.json(repositories);
+  response.json(repository);
 });
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
 
-  const { title, url, techs } = request.body;
+  const { url, title, techs } = request.body;
 
   const repositoryIndex = repositories.findIndex(
     (repository) => repository.id === id
@@ -38,7 +38,7 @@ app.put("/repositories/:id", (request, response) => {
   }
   const likes = repositories[repositoryIndex].likes;
 
-  const repository = { id, url, techs, likes };
+  const repository = { id, url, title, techs, likes };
 
   repositories[repositoryIndex] = repository;
 
